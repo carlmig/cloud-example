@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mario-trivia
+  name: mario-trivia
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mario-trivia
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mario-trivia
+    spec:
+      containers:
+      - image: mario-trivia:1.0.0
+        imagePullPolicy: IfNotPresent
+        name: mario-trivia
+        ports:
+        - containerPort: 8081 
+        envFrom:
+        - configMapRef:
+            name: mario-config
