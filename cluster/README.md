@@ -65,3 +65,17 @@ helm upgrade mario-jokes .
 ```
 minikube service mario-jokes-helm-mario-jokes --url
 ```
+
+## ArgoCD
+
+In order to access ArgoCD Web UI you can use the following minikube command:
+```
+minikube service list
+```
+
+### Username and password
+Username is *admin* and the password can be obtained from the secret * argocd-initial-admin-secret* with kubectl:
+
+```
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
+```
